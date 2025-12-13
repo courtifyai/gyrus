@@ -2,7 +2,7 @@ import asyncio
 from typing import Any, AsyncIterator
 
 
-class Channel:
+class Stream:
     """A Go-like channel implementation using asyncio.Queue."""
 
     def __init__(self, maxsize: int = 0):

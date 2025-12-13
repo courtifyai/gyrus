@@ -1,0 +1,7 @@
+- name: case_stream_a
+  file: tests/processors/processor_stream_a.py
+  nexts:
+    - case_stream_b
+
+- name: case_stream_b
+  file: tests/processors/processor_stream_b.py

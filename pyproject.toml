@@ -1,7 +1,7 @@
 [project]
 name = "gyrus"
 version = "0.1.0"
-description = ""
+description = "A lightweight workflow engine with YAML-based configuration."
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [

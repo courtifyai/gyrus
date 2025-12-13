@@ -55,8 +55,8 @@ class Cortex(object):
             ctx.status = Status.RUN_TIME_ERROR
             raise e
 
-        # Close the output channel.
-        ctx.output.close()
+        # Close the stream.
+        ctx.stream.close()
         return False
 
     async def executor(self, ctx: Context, node: Node, state: State):
@@ -135,7 +135,7 @@ class Cortex(object):
             await self._execute_nodes(runtime)
 
         # Close the output channel.
-        ctx.output.close()
+        ctx.stream.close()
         return True
 
     def _initialize_nodes(self, runtime: Runtime):

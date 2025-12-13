@@ -1,14 +1,11 @@
-import asyncio
-from typing import Any, AsyncIterator
-
-from .channel import Channel
+from .stream import Stream
 
 
 class Context:
     def __init__(self, parent: str = "root"):
         self._attributes = {
             "parent": parent,
-            "output": Channel(maxsize=10),
+            "stream": Stream(maxsize=10),
         }
 
     def __getattr__(self, name):
@@ -36,7 +33,7 @@ class Context:
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
-        self._attributes["output"].close()
+        self._attributes["stream"].close()
         self._attributes.clear()
 
         return False
@@ -49,5 +46,5 @@ class Context:
 
     def clone(self, parent):
         ctx = Context(parent=parent)
-        ctx.output = self.output
+        ctx.stream = self.stream
         return ctx
