@@ -1,0 +1,17 @@
+- name: case_a
+  file: tests/processors/processor_a.py
+
+- name: case_b
+  file: tests/processors/processor_b.py
+  listen: 
+    - event_edit
+
+- name: case_c
+  file: tests/processors/processor_c.py
+  listen: 
+    - event_select
+
+- name: case_d
+  file: tests/processors/processor_d.py
+  listen: 
+    - event_delete

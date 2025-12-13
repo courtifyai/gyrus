@@ -1,0 +1,29 @@
+- name: case_a
+  file: tests/processors/processor_a.py
+  nexts:
+    - case_b
+    - case_c
+
+- name: case_b
+  file: tests/processors/processor_b.py
+  nexts:
+    - case_context_1
+    - case_context_2
+
+- name: case_c
+  file: tests/processors/processor_c.py
+  nexts:
+    - case_context_3
+    - case_context_4
+
+- name: case_context_1
+  file: tests/processors/processor_context.py
+
+- name: case_context_2
+  file: tests/processors/processor_context.py
+
+- name: case_context_3
+  file: tests/processors/processor_context.py
+
+- name: case_context_4
+  file: tests/processors/processor_context.py

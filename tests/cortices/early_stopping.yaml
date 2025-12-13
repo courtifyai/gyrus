@@ -1,0 +1,26 @@
+- name: case_a
+  file: tests/processors/processor_a.py
+  nexts:
+    - case_b
+    - case_c
+    - case_rude
+
+- name: case_b
+  file: tests/processors/processor_b.py
+  group: "killable"
+  nexts:
+    - case_d
+
+- name: case_c
+  file: tests/processors/processor_c.py
+  group: "killable"
+  nexts:
+    - case_d
+
+- name: case_rude
+  file: tests/processors/processor_rude.py
+  nexts:
+    - case_d
+
+- name: case_d
+  file: tests/processors/processor_d.py

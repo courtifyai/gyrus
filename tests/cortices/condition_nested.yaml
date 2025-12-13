@@ -1,0 +1,48 @@
+- name: case_a
+  file: tests/processors/processor_a.py
+  nexts:
+    - case_b
+    - case_c
+    - case_d
+    - case_e
+
+- name: case_b
+  file: tests/processors/processor_b.py
+  when:
+    not:
+      all:
+        any:
+          condition_a: "nerdduan"
+          condition_b: "nerddeng"
+
+- name: case_c
+  file: tests/processors/processor_c.py
+  when:
+    all:
+      - any:
+          condition_a: "nerdduan"
+          condition_b: "nerdduan"
+      - any:
+          condition_a: "nerddeng"
+          condition_b: "nerddeng"
+
+- name: case_d
+  file: tests/processors/processor_d.py
+  when:
+    all:
+      any:
+        condition_a: "nerdduan"
+        condition_b: "nerdduan"
+      all:
+        condition_a: "nerdduan"
+        condition_b: "nerddeng"
+
+- name: case_e
+  file: tests/processors/processor_e.py
+  when:
+    all:
+      all:
+        all:
+          all:
+            all:
+              condition_a: "nerdduan"

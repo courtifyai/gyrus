@@ -1,0 +1,24 @@
+- name: case_a
+  file: tests/processors/processor_a.py
+  nexts:
+    - case_b
+
+- name: case_b
+  file: tests/processors/processor_b.py
+  nexts:
+    - case_c
+
+- name: case_c
+  file: tests/processors/processor_c.py
+  nexts:
+    - case_d
+
+- name: case_d
+  file: tests/processors/processor_d.py
+  nexts:
+    - case_e
+
+- name: case_e
+  file: tests/processors/processor_e.py
+  nexts:
+    - case_a

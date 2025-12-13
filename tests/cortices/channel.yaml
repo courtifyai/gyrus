@@ -1,0 +1,7 @@
+- name: case_channel_a
+  file: tests/processors/processor_channel_a.py
+  nexts:
+    - case_channel_b
+
+- name: case_channel_b
+  file: tests/processors/processor_channel_b.py
