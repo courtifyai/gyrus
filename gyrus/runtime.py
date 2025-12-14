@@ -125,7 +125,7 @@ class Runtime(object):
     def executor_wrapper(self, executor, args):
         try:
             return executor(*args)
-        except asyncio.CancelledError as e:
+        except asyncio.CancelledError as _e:
             return True
 
     def trigger(self, parent: str):
