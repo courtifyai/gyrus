@@ -149,7 +149,7 @@ class Cortex(object):
         ]
 
         for name in nodes_to_run:
-            runtime.add_running(ctx, state, name, self.executor)
+            runtime.add_running(ctx, state, name, self.executor, self.nodes, self.nexts)
 
     async def _execute_nodes(self, runtime: Runtime):
         done, _ = await asyncio.wait(

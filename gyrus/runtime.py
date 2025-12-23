@@ -1,5 +1,5 @@
 import asyncio
-from typing import Dict
+from typing import Dict, Optional
 
 from .context import Context
 from .enums import Status
@@ -46,7 +46,7 @@ class Runtime(object):
             return True
         return False
 
-    def add_waiting(self, parent: str, name: str, nodes: set, nexts: set) -> bool:
+    def add_waiting(self, parent: str, name: str, nodes: Dict, nexts: Dict) -> bool:
         if self.is_visited(nodes[name]):
             return False
 
@@ -56,7 +56,7 @@ class Runtime(object):
         self.waiting[name] = Node(nodes[name], nexts[name], parent=parent)
         return True
 
-    def add_running(self, ctx: Context, state: State, name: str, executor) -> bool:
+    def add_running(self, ctx: Context, state: State, name: str, executor, nodes: Optional[Dict] = None, nexts: Optional[Dict] = None) -> bool:
         if name in self.running:
             raise CortexException(
                 Status.RUN_TIME_ERROR, f"node({name}) has been already in running"
@@ -64,8 +64,13 @@ class Runtime(object):
 
         node = self.waiting.pop(name)
 
-        # Check if the node can be executed, if not, return True.
+        # Check if the node can be executed, if not, mark as completed and reduce in-degree of downstream nodes.
         if not node.check(state):
+            # Mark the node as completed (skipped due to condition not met)
+            self.completed[name] = Status.SUCCESS
+            # Reduce in-degree of downstream nodes
+            if nodes is not None and nexts is not None:
+                self.on_node_completed(name, nodes, nexts)
             return True
 
         task = asyncio.get_event_loop().create_task(
@@ -103,7 +108,7 @@ class Runtime(object):
         self.completed[node.name] = status
         return status
 
-    def on_node_completed(self, name: str, nodes: set, nexts: set) -> bool:
+    def on_node_completed(self, name: str, nodes: Dict, nexts: Dict) -> bool:
         if name not in nexts:
             raise CortexException(
                 Status.CORTEX_CONFIG_ERROR, f"get next nodes of {name} failed"
