@@ -1,3 +1,4 @@
+from .enums import Status
 from .stream import Stream
 
 
@@ -11,6 +12,10 @@ class Context:
     def __getattr__(self, name):
         if name in self._attributes:
             return self._attributes[name]
+
+        if name == "status":
+            return Status.SUCCESS
+
         raise AttributeError(
             f"'{type(self).__name__}' object has no attribute '{name}'"
         )
