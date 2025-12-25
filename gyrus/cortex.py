@@ -1,6 +1,5 @@
 import asyncio
 import logging
-import sys
 import time
 
 from .class_factory import ClassFactory
@@ -74,8 +73,7 @@ class Cortex(object):
 
         start_at = time.time()
         process_ret = await node.processor.process(ctx, state)
-        # Flush stdout to ensure print output is displayed immediately
-        sys.stdout.flush()
+
         logging.info(
             f"processor:{node.processor.name} executed, result:{process_ret} cost:{time.time() - start_at}"
         )
